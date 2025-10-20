@@ -1,0 +1,24 @@
+name: reset-reviews-after-edit.yml
+on:
+  pull_request:
+    types: [ opened, reopened ]
+
+jobs:
+  reset-review-checks:
+    name: Reset reviews
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      statuses: write
+    steps:
+      - uses: actions/checkout@v5.0.0
+        id: checkout
+        name: Checkout repository
+      - name: Get current commit SHA
+        run: |
+          echo "Checked out ${{ steps.checkout.outputs.commit }}"
+      - name: Set Commit Status
+        run: |
+          gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" \
+          /repos/${{ github.repository }}/statuses/${{ steps.checkout.outputs.commit }} \
+          -f 'state=pending' -f 'context=quality-assurance/review-workflow'
