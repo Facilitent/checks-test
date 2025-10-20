@@ -1,0 +1,17 @@
+name: GitHub PR Checks - gh CLI
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  gh-cli-checks:
+    name: Run GitHub CLI PR Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Print event data
+        run: |
+          echo ${{ toJSON(github.event) }}
