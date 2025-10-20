@@ -29,6 +29,6 @@ jobs:
         run: |
           gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" \
           /repos/${{ github.repository }}/check-runs \
-             -f 'name=quality-assurance/approval-review-check' -f 'head_sha=${{ steps.checkout.outputs.commit }}'\
-          -f 'status=queued' -f 'output[title]=Implementation review' -f 'output[summary]=Implementation Review pending' \
+          -f 'name=approval-review-check' -f 'head_sha=${{ steps.checkout.outputs.commit }}' \
+          -f 'output[title]=Implementation review' -f 'output[summary]=Implementation Review pending' \
           -f 'output[text]=Request a Implementation review for your changes'
