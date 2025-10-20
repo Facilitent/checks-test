@@ -31,4 +31,4 @@ jobs:
           /repos/${{ github.repository }}/check-runs \
           -f 'name=approval-review-check' -f 'head_sha=${{ steps.checkout.outputs.commit }}' \
           -f 'output[title]=Implementation review' -f 'output[summary]=Implementation Review pending' \
-          -f 'output[text]=Request a Implementation review for your changes'
+          -f 'output[text]=Request a Implementation review for your changes' -f 'external_id=${{ github.event.pull_request.id }}'
